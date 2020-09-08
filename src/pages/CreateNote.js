@@ -2,6 +2,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 
+//Importing the AsyncStorage function for storing the note
+import { createNote } from '../util/noteStorage';
+
 
 export default function CreateNote() {
 
@@ -22,9 +25,7 @@ export default function CreateNote() {
             }
         }
 
-        console.log(note.dateOfTheNote)
-
-        return note;
+        return createNote(note);
     };
 
     return (
@@ -41,7 +42,9 @@ export default function CreateNote() {
             />
             <Text>{numOfChars} caracteres escritos</Text>
             <TouchableOpacity style={styles.createNoteButton}
-                onPress={() => makeNote()}>
+                onPress={() => makeNote() ? 
+                    alert("Nota criada com sucesso!") : alert("Um erro ocorreu ao criar a nota.")
+                    }>
                 <Text>Criar nota</Text>
             </TouchableOpacity>
 

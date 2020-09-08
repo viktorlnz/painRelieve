@@ -5,12 +5,31 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 //Imports of the main page
 import { AntDesign } from '@expo/vector-icons';
 
+//Importing the notes
+import { readNote } from '../util/noteStorage';
+
+const getNotes = async () => {
+    const NOTES = await readNote();
+
+    console.log("Analise");
+    console.log(JSON.stringify(NOTES));
+
+    return(
+        NOTES ? 
+            <Text>{JSON.stringify(NOTES)}</Text> :
+            <Text>Comece criando uma nota</Text>
+    );
+}
+
 export default function Main( {navigation} ) {
+    
+    
+
     return (
         <View style={styles.container}>
             <Text>Pain Relieve</Text>
 
-            <Text>Comece criando uma nota no seu diário</Text>
+            <Text>{getNotes()}</Text>
             <TouchableOpacity
                 onPress = {() => navigation.navigate('CreateNote')}
                 style={styles.addNoteButton}>
