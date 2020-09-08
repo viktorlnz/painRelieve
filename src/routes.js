@@ -13,7 +13,7 @@ const Routes = () => (
     <NavigationContainer>
         <Stack.Navigator>
             <Stack.Screen name="Main" component={Main} options={{ title: 'Pain Relieve' }} />
-            <Stack.Screen name="CreateNote" component={CreateNote} />
+            <Stack.Screen name="CreateNote" component={CreateNote} options={ {title: 'Criar uma nota'}}/>
         </Stack.Navigator>
     </NavigationContainer>
 );
