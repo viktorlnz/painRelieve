@@ -1,0 +1,12 @@
+{
+  "name": "painRelieve",
+  "displayName": "painRelieve",
+  "expo": {
+    "name": "painRelieve",
+    "slug": "painRelieve",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
