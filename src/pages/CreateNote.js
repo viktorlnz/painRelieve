@@ -12,20 +12,9 @@ export default function CreateNote() {
     const [numOfChars, setNumOfChars] = React.useState(value.length);
 
     const makeNote = () => {
-        const date = new Date();
+        
 
-        const note = {
-            note: value,
-            dateOfTheNote: {
-                'day': date.getDate(),
-                'month': date.getMonth(),
-                'year': date.getFullYear(),
-                'hour': date.getHours(),
-                'minute': date.getMinutes()
-            }
-        }
-
-        return createNote(note);
+        return createNote(value);
     };
 
     return (

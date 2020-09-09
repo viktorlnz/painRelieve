@@ -8,28 +8,78 @@ import { AntDesign } from '@expo/vector-icons';
 //Importing the notes
 import { readNote } from '../util/noteStorage';
 
-const getNotes = async () => {
-    const NOTES = await readNote();
-
-    console.log("Analise");
-    console.log(JSON.stringify(NOTES));
-
-    return(
-        NOTES ? 
-            <Text>{JSON.stringify(NOTES)}</Text> :
-            <Text>Comece criando uma nota</Text>
-    );
-}
-
 export default function Main( {navigation} ) {
+    const [notes, setNotes] = React.useState(null);
     
+    React.useEffect(() => { 
     
+        getNotes = () => {
+        
+            readNote().then( (note) => {
+                //console.log("Analise");
+                //console.log(note);
+
+                setNotes(note.reverse());
+            });
+
+        }
+    
+        getNotes();
+    }, []);
+    
+    const makeNotesJsx = () => {
+        console.log("Function to make the notes in JSX");
+        console.log(notes);
+
+        let notesElement = '';
+
+        notes.map( (noteItem) => {
+            console.log("loge do item");
+            console.log(noteItem.date);
+            console.log("checagem FINAL");
+            console.log(typeof noteItem.date.month);
+            console.log(noteItem.date.month);
+
+            notesElement += 
+            ("<View>"
+                +"<Text>"+noteItem.date.day+" de " 
+                +noteItem.date.month+" de " 
+                +noteItem.date.year+"." 
+                +noteItem.date.hour+":"+noteItem.date.minute
+                +"</Text>"
+                +"<View>"
+                +"    <Text>"+noteItem.note+"</Text>"
+                +"</View>"
+            +"</View>")
+        });
+
+        /*const notesElement = notes.reduce((noteItem, notesJsx) => {
+            
+            
+            return (notesJsx +
+            <View>
+                <Text>{noteItem.date.day} de 
+                {noteItem.date.month} de 
+                {noteItem.date.year}. 
+                {noteItem.date.hour}:{noteItem.date.minute}
+                </Text>
+
+                <View>
+                    <Text>{noteItem.note}</Text>
+                </View>
+            </View>);
+        });*/
+
+        console.log(notesElement);
+
+        return notesElement;
+    }
 
     return (
         <View style={styles.container}>
             <Text>Pain Relieve</Text>
 
-            <Text>{getNotes()}</Text>
+            <Text>{notes ? makeNotesJsx():"Comece criando uma nota"}</Text>
             <TouchableOpacity
                 onPress = {() => navigation.navigate('CreateNote')}
                 style={styles.addNoteButton}>
