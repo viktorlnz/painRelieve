@@ -1,12 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 
 //Imports of the main page
 import { AntDesign } from '@expo/vector-icons';
 
 //Importing the notes
 import { readNote } from '../util/noteStorage';
+
+import NoteItem from '../components/NoteItem';
 
 export default function Main( {navigation} ) {
     const [notes, setNotes] = React.useState(null);
@@ -31,44 +32,27 @@ export default function Main( {navigation} ) {
         console.log("Function to make the notes in JSX");
         console.log(notes);
 
-        let notesElement = '';
+        notes.map((note) => {
+            console.log(note.id);
+        });
 
-        notes.map( (noteItem) => {
+        let notesElement = <FlatList data = { notes } 
+                                    renderItem = { NoteItem }
+                                    keyExtractor = {item => item.id}
+                                    />;
+
+        /*notes.map( (noteItem) => {
             console.log("loge do item");
             console.log(noteItem.date);
             console.log("checagem FINAL");
             console.log(typeof noteItem.date.month);
             console.log(noteItem.date.month);
 
-            notesElement += 
-            ("<View>"
-                +"<Text>"+noteItem.date.day+" de " 
-                +noteItem.date.month+" de " 
-                +noteItem.date.year+"." 
-                +noteItem.date.hour+":"+noteItem.date.minute
-                +"</Text>"
-                +"<View>"
-                +"    <Text>"+noteItem.note+"</Text>"
-                +"</View>"
-            +"</View>")
-        });
+            const temp = 
+            <NoteItem note = {noteItem} />
 
-        /*const notesElement = notes.reduce((noteItem, notesJsx) => {
-            
-            
-            return (notesJsx +
-            <View>
-                <Text>{noteItem.date.day} de 
-                {noteItem.date.month} de 
-                {noteItem.date.year}. 
-                {noteItem.date.hour}:{noteItem.date.minute}
-                </Text>
-
-                <View>
-                    <Text>{noteItem.note}</Text>
-                </View>
-            </View>);
-        });*/
+            notesElement.push(temp);
+        }); */
 
         console.log(notesElement);
 
@@ -79,7 +63,7 @@ export default function Main( {navigation} ) {
         <View style={styles.container}>
             <Text>Pain Relieve</Text>
 
-            <Text>{notes ? makeNotesJsx():"Comece criando uma nota"}</Text>
+            <View>{notes ? makeNotesJsx():<Text>Comece criando uma nota</Text>}</View>
             <TouchableOpacity
                 onPress = {() => navigation.navigate('CreateNote')}
                 style={styles.addNoteButton}>
