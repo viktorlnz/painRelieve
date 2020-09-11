@@ -61,9 +61,8 @@ export default function Main( {navigation} ) {
 
     return (
         <View style={styles.container}>
-            <Text>Pain Relieve</Text>
 
-            <View>{notes ? makeNotesJsx():<Text>Comece criando uma nota</Text>}</View>
+            {notes ? makeNotesJsx():<Text>Comece criando uma nota</Text>}
             <TouchableOpacity
                 onPress = {() => navigation.navigate('CreateNote')}
                 style={styles.addNoteButton}>

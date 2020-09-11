@@ -1,18 +1,17 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
-function NoteItem(props){
-    const {note} = props;
+function NoteItem({item}){
 
     return(
-        <View key = {note.id} style = {styles.component}>
-            <Text style = {styles.date}>{note.date.day} de {note.date.month} de {note.date.year}. 
-            {note.date.hour}:{note.date.minute}
+        <TouchableOpacity style = {styles.component}>
+            <Text style = {styles.date}>{item.date.day} de {item.date.month} de {item.date.year} - 
+            {item.date.hour}:{item.date.minute}
             </Text>
             <View>
-                <Text>{note.note}</Text>
+                <Text>{item.note}</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 }
 
